@@ -6,7 +6,7 @@
     delete sessionStorage.redirect;
     if (redirect && redirect != location.href) {
       history.replaceState(null, null, redirect);
-      location.href='https://github.com/' + redirect;
+      location.href='https://github.com' + redirect;
     }
   })();
 </script>
