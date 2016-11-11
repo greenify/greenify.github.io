@@ -1,0 +1,14 @@
+<html>
+<head>
+<script>
+  (function(){
+    var redirect = sessionStorage.redirect;
+    delete sessionStorage.redirect;
+    if (redirect && redirect != location.href) {
+      history.replaceState(null, null, redirect);
+      location.href='https://github.com/' + redirect;
+    }
+  })();
+</script>
+</head>
+</html>
