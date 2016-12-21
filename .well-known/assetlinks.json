@@ -1,0 +1,17 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.oasisfeng.greenify",
+    "sha256_cert_fingerprints":
+    ["44:3B:BA:F9:F4:15:3B:55:8B:C1:43:C8:34:67:42:EC:BF:4B:2A:B3:4A:EB:74:7E:01:C6:B3:03:18:97:2C:20"]
+  }
+},{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.oasisfeng.greenify.debug",
+    "sha256_cert_fingerprints":
+    ["5A:D5:57:88:AF:B8:1E:0B:58:DB:E9:C0:CA:37:43:8D:F3:45:F5:47:80:28:CB:C2:66:61:9E:33:3E:5B:F3:B1"]
+  }
+}]
