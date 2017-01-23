@@ -1,8 +1,9 @@
 <html>
 <head>
 <script>
-  sessionStorage.redirect = location.pathname;
+  (function(){
+    location.href='https://github.com' + location.pathname;
+  })();
 </script>
-<meta http-equiv="refresh" content="0;URL=/" />
 </head>
 </html>
