@@ -44,8 +44,10 @@ Complex prescript may also restrict the intent within specific app or component 
 
 ### Prescription Collection - a set of referenced prescriptions
 
-TODO
+[TODO]
 
 ## How to publish your prescriptions
 
-TODO
+All prescripts must be published with repository name that starts with "rx-" while all prescription collections must be published with repository name that starts with "rxs-".
+
+[TODO]
