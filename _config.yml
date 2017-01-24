@@ -1,3 +1,5 @@
+title: Greenify Community Features
+description: May the Force be with you
 include: [".well-known"]
 kramdown:
   extensions:
