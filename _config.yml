@@ -1,3 +1,6 @@
 include: [".well-known"]
+kramdown:
+  extensions:
+    - autolink
 
 theme: jekyll-theme-cayman
