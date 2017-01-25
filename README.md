@@ -25,6 +25,7 @@ Currently, the following two types of prescription are supported.
 Compsing a prescript requires basic Android development knowledge and deep analysis in low-level app behaviors, as it is based on the "intent" mechanism, which serves as the most important protocol of behavior and communication between (and also within) Android apps.
 
 Example: <https://github.com/greenify/rx-mipush>
+
 ```xml
 <prescription xmlns="http://greenify.github.io/schemas/prescription/v1" type="service">
   <intent-filter>
