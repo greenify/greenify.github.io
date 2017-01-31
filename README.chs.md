@@ -1,6 +1,7 @@
 ---
 title: 绿色守护社区特性
 ---
+中文|[English](/README.md)
 
 # 关于“处方”
 
