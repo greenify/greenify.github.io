@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 绿色守护社区特性
 ---
 
