@@ -1,6 +1,7 @@
 title: Greenify Community Features
 description: May the Force be with you
 include: [".well-known"]
+google_analytics: UA-39876882-2
 kramdown:
   extensions:
     - autolink
