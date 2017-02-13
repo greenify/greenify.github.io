@@ -14,7 +14,13 @@ Prescription may block various types of unwelcome behaviors in regular Android a
 * Service starting and binding (invocation) behavior
 * Activity (UI) launching behavior
 
-For safety reason, all prescriptions are **only applied to cross-user-app behaviors at present, excluding those originated from Android system and privilged system apps**. This limit will be lifted in the near future with support for finer directional control.
+Some real world use-cases:
+
+* Unnecessary power and memory consumption caused by background services or periodic behaviors, without settings in app to disable.
+* Random lagging caused by lots of background processes unnecessarily launched in a short time, especially in some poorly written 3rd-party SDKs integrated by popular apps.
+* Unwelcome promotions and ads, without proper settings in app to disable.
+* Unwelcome or malfunctional built-in software components in the device.
+* ……
 
 # How to write a prescription
 
@@ -26,6 +32,28 @@ Currently, the following two types of prescription are supported.
 
 Compsing a prescript requires basic Android development knowledge and deep analysis in low-level app behaviors, as it is based on the `intent` mechanism, which serves as the most fundamental protocol of behavior and communication between (and also within) Android apps.
 
+Syntax:
+
+```xml
+<prescription xmlns="http://greenify.github.io/schemas/prescription/v2"
+  type="service|broadcast|activity"
+  sender="other-app|other|any"
+  [package="<app package name>"]
+  [class="<component class name>"]>
+  <intent-filter>
+    ...
+  </intent-filter>
+</prescription>
+```
+
+A prescript may contain more than one `<intent-filter>` (See [Android developer document](https://developer.android.com/guide/topics/manifest/intent-filter-element.html) for detailed syntax). If any of them matches, the behavior is blocked. Complex prescript may also restrict the intent matching to specific app or specific component within app, defined by `package` or `class` attribute of `<prescription>` tag. (see <https://github.com/greenify/rx-baidu-sso/>) If both attributes are supplied, then intent filters may be omitted all together to block a component unconditionally.
+
+Starting from Greenify v3.2.0 (schema version 2), new `sender` attribute is introduced to limit the origination of behavior, with 3 supported types:
+
+* `other-app` - originated from other app (default)
+* `other` - originated from outside of target app itself. (including origination from system, in addition to `other-app`)
+* `any` - originated anywhere. (including app-internal behaviors, in addition to `other`)
+
 Example: <https://github.com/greenify/rx-mipush>
 
 ```xml
@@ -36,9 +64,8 @@ Example: <https://github.com/greenify/rx-mipush>
 </prescription>
 ```
 
-This is a simple prescript with just one `intent-filter` to identify the behavior which it blocks. The attribute `type="service"` indicate it applies to "service". (other supported types are `broadcast` and `activity`)
+This is a simple prescript with just one `intent-filter` to identify the behavior which it blocks. The attribute `type="service"` indicate it applies to "service".
 
-A prescript may contain more than one intent-filter. If any of them matches, the behavior is blocked. Complex prescript may also restrict the intent matching to specific app or specific component within app, defined by `package` or `class` attribute of `<prescription>` tag. (see <https://github.com/greenify/rx-baidu-sso/>) If both attributes are supplied, then intent filters may be omitted all together to block a component unconditionally.
 
 ## Prescription Collection - a set of referenced prescriptions
 
