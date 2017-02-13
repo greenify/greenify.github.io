@@ -7,7 +7,7 @@ title: 绿色守护社区特性
 
 绿色守护中的“处方”，是一种针对任何Android应用中不受欢迎行为的精确定向屏蔽。它被社区成员以完全开放的规则形式发布在GitHub上，之后即可由任何用户导入自己设备上安装的绿色守护中。欢迎所有拥有相关经验的高级用户（尤其是开发者）自己编写、发布和传播处方，为Android应用生态带来带来更好的风貌，形成一股可以影响和鼓励应用开发者提升应用设备体验的力量。这也是绿色守护的初衷。
 
-“处方”特性要求绿色守护工作在ROOT模式，或Android 4.4~5.x的非ROOT模式。
+“处方”特性需要绿色守护工作在ROOT模式，或Android 4.4~5.x下工作在非ROOT模式。
 
 # 处方能做什么
 
@@ -17,7 +17,13 @@ title: 绿色守护社区特性
 * 服务的启动和绑定（调用）行为
 * 界面的启动行为
 
-出于安全原因，所有的处方**目前仅能作用于跨用户应用的行为，不包括从Android系统和系统内特权应用触发的行为**。这项限制将在不久后取消，并提供细化的行为方向限定。
+具体到实际场景中的用途，常见可屏蔽的不受欢迎行为包括：
+
+* 浪费电量和内存的不必要的持续运行后台服务或周期性静默运行的后台功能，应用本身未提供设置选项关闭
+* 一次启动大量应用后台进程的行为，造成严重的设备性能下降和电量消耗
+* 不受欢迎的推广信息推送，应用本身未提供合理的设置
+* 设备内置的某些不受欢迎或存在缺陷的功能（例如某些机型内置的Google服务在中国大陆地区造成的严重耗电）
+* ……
 
 # 如何写处方
 
@@ -29,7 +35,28 @@ title: 绿色守护社区特性
 
 编写一条处方单需要对Android开发的初步知识和对应用行为底层的深入分析，因为处方单是基于Android中负责应用间（及应用内）行为和通信的基础协议 —— “意图”（`intent`）机制屏蔽特定的行为。
 
-例如：<https://github.com/greenify/rx-mipush>
+语法：
+```xml
+<prescription xmlns="http://greenify.github.io/schemas/prescription/v2"
+  type="service|broadcast|activity"
+  sender="other-app|other|any"
+  [package="<app package name>"]
+  [class="<component class name>"]>
+  <intent-filter>
+    ...
+  </intent-filter>
+</prescription>
+```
+
+一条处方单可以包含单项或多项“意图筛选器”（`<intent-filter>`，其具体语法参见[Android开发者文档](https://developer.android.com/guide/topics/manifest/intent-filter-element.html)）。如果其中的任何一项匹配，行为就会被屏蔽。复杂的处方单还可以将“意图”匹配的范围限定于特定的应用或应用中的特定组件（通过`<prescription>`标签的`package`和`class`属性）。（例如：<https://github.com/greenify/rx-baidu-sso/>） 如果这两个属性同时使用，则允许完全略去“意图筛选器”，从而对一个组件进行无条件屏蔽。
+
+从绿色守护3.2.0版本（处方格式版本2）开始支持的`sender`属性可限定行为的触发来源，目前支持三种范围的触发来源：
+
+* `other-app`：其它应用触发的行为（默认）
+* `other`：非应用自身触发的行为（在前一类型基础上，还涵盖了系统触发的行为）
+* `any`：任何来源触发的行为（在前一类型基础上，还涵盖了应用内部的行为）
+
+简单示例：<https://github.com/greenify/rx-mipush>
 
 ```xml
 <prescription xmlns="http://greenify.github.io/schemas/prescription/v1" type="service">
@@ -39,9 +66,7 @@ title: 绿色守护社区特性
 </prescription>
 ```
 
-这是一条简单的处方单，包含仅仅一个用于识别所屏蔽行为的“意图筛选器”（`intent-filter`）。类型属性`type="service"`表明它处理的是“服务”行为。（其它目前支持的类型还有“广播”（`broadcast`）和“界面”（`activity`）。
-
-一条处方单可以包含单项或多项“意图筛选器”（`intent-filter`）。如果其中的任何一项匹配，行为就会被屏蔽。复杂的处方单还可以将“意图”匹配的范围限定于特定的应用或应用中的特定组件（通过`<prescription>`标签的`package`和`class`属性）。（例如：<https://github.com/greenify/rx-baidu-sso/>） 如果两个属性同时使用，则允许完全略去“意图筛选器”，从而对一个组件进行无条件屏蔽。
+这是一条简单的处方单，包含仅仅一个用于识别所屏蔽行为的“意图筛选器”（`intent-filter`）。类型属性`type="service"`表明它处理的是“服务”行为。
 
 ## 处方集 —— 对一组处方单的汇集引用
 
