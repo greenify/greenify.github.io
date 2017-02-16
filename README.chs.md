@@ -49,9 +49,23 @@ title: 绿色守护社区特性
 </prescription>
 ```
 
+或（从绿色守护 3.2.0 版本开始)
+  
+```xml
+<prescriptions xmlns="http://greenify.github.io/schemas/prescription/v2">
+  <prescription ... >
+    ...
+  </prescription>
+  <prescription ... >
+    ...
+  </prescription>
+  ...
+</prescriptions>
+```
+
 一条处方单可以包含单项或多项“意图筛选器”（`<intent-filter>`，其具体语法参见[Android开发者文档](https://developer.android.com/guide/topics/manifest/intent-filter-element.html)）。如果其中的任何一项匹配，行为就会被屏蔽。复杂的处方单还可以将“意图”匹配的范围限定于特定的应用或应用中的特定组件（通过`<prescription>`标签的`package`和`class`属性）。（例如：<https://github.com/greenify/rx-baidu-sso/>） 如果这两个属性同时使用，则允许完全略去“意图筛选器”，从而对一个组件进行无条件屏蔽。
 
-从绿色守护3.2.0版本（处方格式版本2）开始支持的`sender`属性可限定行为的触发来源，目前支持三种范围的触发来源：
+从绿色守护3.2.0版本（处方格式版本2）开始，一条处方单还可以包含多个子处方单（上述`<prescriptions>`语法）。以及新的`sender`属性用以限定行为的触发来源，目前支持三种范围的触发来源：
 
 * `other-app`：其它应用触发的行为（默认）
 * `other`：非应用自身触发的行为（在前一类型基础上，还涵盖了系统触发的行为）
