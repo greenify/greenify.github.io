@@ -46,9 +46,23 @@ Syntax:
 </prescription>
 ```
 
-A prescript may contain more than one `<intent-filter>` (See [Android developer document](https://developer.android.com/guide/topics/manifest/intent-filter-element.html) for detailed syntax). If any of them matches, the behavior is blocked. Complex prescript may also restrict the intent matching to specific app or specific component within app, defined by `package` or `class` attribute of `<prescription>` tag. (see <https://github.com/greenify/rx-baidu-sso/>) If both attributes are supplied, then intent filters may be omitted all together to block a component unconditionally.
+or (since Greenify v3.2.0)
 
-Starting from Greenify v3.2.0 (schema version 2), new `sender` attribute is introduced to limit the origination of behavior, with 3 supported types:
+```xml
+<prescriptions xmlns="http://greenify.github.io/schemas/prescription/v2">
+  <prescription ... >
+    ...
+  </prescription>
+  <prescription ... >
+    ...
+  </prescription>
+  ...
+</prescriptions>
+```
+
+A prescript may contain more more than one `<intent-filter>` (See [Android developer document](https://developer.android.com/guide/topics/manifest/intent-filter-element.html) for detailed syntax). If any of them matches, the behavior is blocked. Complex prescript may also restrict the intent matching to specific app or specific component within app, defined by `package` or `class` attribute of `<prescription>` tag. (see <https://github.com/greenify/rx-baidu-sso/>) If both attributes are supplied, then intent filters may be omitted all together to block a component unconditionally.
+
+Starting from Greenify v3.2.0 (schema version 2), prescript may also contain inline sub-prescripts. And a new attribute `sender` is introduced to limit the origination of behavior, with 3 supported types:
 
 * `other-app` - originated from other app (default)
 * `other` - originated from outside of target app itself. (including origination from system, in addition to `other-app`)
