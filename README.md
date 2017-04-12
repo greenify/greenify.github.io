@@ -60,7 +60,7 @@ or (since Greenify v3.2.0)
 </prescriptions>
 ```
 
-A prescript may contain more more than one `<intent-filter>` (See [Android developer document](https://developer.android.com/guide/topics/manifest/intent-filter-element.html) for detailed syntax). If any of them matches, the behavior is blocked. Complex prescript may also restrict the intent matching to specific app or specific component within app, defined by `package` or `class` attribute of `<prescription>` tag. (see <https://github.com/greenify/rx-baidu-sso/>) The `class` attribute can be used alone since Greenify v3.3 (schema version 3) to block component with the same class name cross all packages. (see <https://github.com/oasisfeng/rx-getui-wakeups>)
+A prescript may contain more more than one `<intent-filter>` (See [Android developer document](https://developer.android.com/guide/topics/manifest/intent-filter-element.html) for detailed syntax). If any of them matches, the behavior is blocked. Complex prescript may also restrict the intent matching to specific app or specific component within app, defined by `package` or `class` attribute of `<prescription>` tag. (see <https://github.com/greenify/rx-baidu-sso/>) You can mix and match the attribute `package`, `class` and `<intent-filter>` block to achieve desired qualification. The `class` attribute can be used alone since Greenify v3.3 (schema version 3) to block component with the same class name cross all packages. (see <https://github.com/oasisfeng/rx-getui-wakeups>)
 
 Starting from Greenify v3.2.0 (schema version 2), prescript may also contain inline sub-prescripts. And a new attribute `sender` is introduced to limit the origination of behavior, with 3 supported types:
 
