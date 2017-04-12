@@ -63,7 +63,7 @@ title: 绿色守护社区特性
 </prescriptions>
 ```
 
-一条处方单可以包含单项或多项“意图筛选器”（`<intent-filter>`，其具体语法参见[Android开发者文档](https://developer.android.com/guide/topics/manifest/intent-filter-element.html)）。如果其中的任何一项匹配，行为就会被屏蔽。复杂的处方单还可以将“意图”匹配的范围限定于特定的应用或应用中的特定组件（通过`<prescription>`标签的`package`和`class`属性）。（例如：<https://github.com/greenify/rx-baidu-sso/>）`package`、`class`和意图筛选器可以任意搭配使用，但必须至少指定其一。单独使用`class`属性是从绿色守护3.3版本（处方格式版本3）开始支持的。（例如：<https://github.com/oasisfeng/rx-getui-wakeups>）
+一条处方单可以包含单项或多项“意图筛选器”（`<intent-filter>`，其具体语法参见[Android开发者文档](https://developer.android.com/guide/topics/manifest/intent-filter-element.html)）。如果其中的任何一项匹配，行为就会被屏蔽。复杂的处方单还可以将“意图”匹配的范围限定于特定的应用或应用中的特定组件（通过`<prescription>`标签的`package`和`class`属性）。（例如：<https://github.com/greenify/rx-baidu-sso/>）`package`、`class`和意图筛选器可以任意搭配使用，但须至少指定其一（单独使用`package`除外）。单独使用`class`属性是从绿色守护3.3版本（处方格式版本3）开始支持的。（例如：<https://github.com/oasisfeng/rx-getui-wakeups>）
 
 从绿色守护3.2.0版本（处方格式版本2）开始，一条处方单还可以包含多个子处方单（上述`<prescriptions>`语法）。以及新的`sender`属性用以限定行为的触发来源，目前支持三种范围的触发来源：
 
