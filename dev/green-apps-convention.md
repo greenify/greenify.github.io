@@ -18,34 +18,42 @@
 
 ### 必要部分
 
-1. Target SDK Version >= 24 (Android 7.0)
+1. **Target SDK Version >= 24 (Android 7.0)**
 
-   [Project Svelte在Android N中得到了一些关键的的强化](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html#bg-opt)，有助于降低应用后台行为对设备体验的影响。
+   [Project Svelte在Android 7中得到了一些关键的的强化](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html#bg-opt)，有助于降低应用后台行为对设备体验的影响。
 
-2. 不在运行时强制请求 **『读取手机状态和身份（READ_PHONE_STATE）』** 权限。
+2. **不在运行时强制请求『读取手机状态和身份（READ_PHONE_STATE）』权限。**
 
    若应用中的某些功能（如通话相关的特性）依赖此权限（须具备逻辑上的合理性），则只能在对应功能交互中请求此权限。即便用户拒绝授予权限，不依赖此权限的功能仍须保持可用。
 
-   原因：IMEI泄露是目前用户隐私和手机安全中的一个重灾区。它具有相当的隐蔽性，在Android 6.0之后的运行期权限体系中依然未能获得清晰的信息披露。由于Android系统仅仅将其显示为『读取手机状态和身份』，使得大部分用户在应用请求此项权限时虽然困惑，但仍未意识到授予这个权限背后存在的安全隐患。
+   原因：IMEI泄露是目前用户隐私和手机安全中的一个突出问题。它具有相当的隐蔽性，在Android 6.0之后的运行期权限体系中依然未能获得清晰的信息披露。由于Android系统仅仅将其显示为『读取手机状态和身份』，使得大部分用户在应用请求此项权限时虽然困惑，但仍未意识到授予这个权限背后存在的安全隐患。
 
-3. 除用户的主动交互触发外，避免启动其它应用未处在运行中的进程。
+3. **除用户的主动交互触发外，避免启动其它应用未处于运行中的进程。**
 
    原因：非主动交互触发的进程启动，即通常所说的『交叉唤醒』。由于交叉唤醒在应用之间往往具有连锁效应，在安装有较多关联应用（例如集成了相同SDK的多个应用）的情况下极易触发『链式唤醒』，造成设备流畅性的急剧下降、耗电上升（及内存急剧消耗），带来严重的设备体验损害。
 
-4. 使用请求唤醒CPU的周期性Alarm、JobScheduler的周期最小不低于30分钟，建议不低于1小时。
+4. **使用请求唤醒CPU的周期性Alarm、JobScheduler的周期最小不低于30分钟，建议不低于1小时。避免在不必要的时间段（如夜间）继续调度周期性事件**
 
-5. 为用户提供可达成『后台纯净』目标的选项。（不必默认开启）
+5. **为用户提供可达成『后台纯净』目标的选项。（不必默认开启）**
 
-   后台纯净：指符合[面向Android O的应用开发要求](https://developer.android.google.cn/preview/behavior-changes.html#o-apps)中关于后台运行的约束。
+   后台纯净：指符合[面向Android O的应用开发要求](https://developer.android.google.cn/preview/features/background.html#services)中关于后台运行的约束。其核心要求是应用进入后台短时间内（至多3分钟）须停止所有后台服务，且在除了收到广播和执行来自通知的PendingIntent之外的其它条件（如JobScheduler）触发的后台行为期间不可以再启动新的后台服务。
 
-6. 不在AndroidManifest.xml中静态声明针对以下广播的接收器：（从面向Android O开始，Android本身已不再允许应用静态声明以下广播的接收器）
+   对于存在内容、数据刷新或弱实时性通知的应用场景，建议在『后台纯净』模式下以周期性轮询替代推送。（参见前述的最低周期约束）
 
-* Intent.ACTION_USER_PRESENT
-* Intent.ACTION_POWER_CONNECTED
-* Intent.ACTION_POWER_DISCONNECTED
-* Intent.ACTION_MEDIA_*
-* WifiManager.SCAN_RESULTS_AVAILABLE_ACTION
+6. **不在AndroidManifest.xml中静态声明针对以下广播的接收器：（从面向Android O开始，Android本身已不再允许应用静态声明以下广播的接收器）**
+
+   * Intent.ACTION_USER_PRESENT
+   * Intent.ACTION_POWER_CONNECTED
+   * Intent.ACTION_POWER_DISCONNECTED
+   * Intent.ACTION_MEDIA_*
+   * WifiManager.SCAN_RESULTS_AVAILABLE_ACTION
 
 ### 建议部分
 
-1. 避免使用『访问外部存储』权限，以Context.getExternalCacheDir()、Context.getExternalFilesDir()等方式替代。
+1. 在Android 4.4以上设备中，避免使用『访问外部存储』权限。
+
+   如果需要将数据或缓存写入外部存储中保存，[Context.getExternalFilesDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalFilesDir(java.lang.String))、[Context.getExternalCacheDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalCacheDir())等相关API所返回的路径[从Android 4.4开始可供应用直接存取，无需任何权限](https://developer.android.google.cn/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE)。如果你的应用需要兼容Android 4.4以下的系统版本，请使用以下权限声明方式：
+
+   `<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />`
+
+   原因：外部存储通常是用户私人照片、视频的保存位置，涉及用户的敏感隐私。除文件管理类工具，应尽可能避免使用此权限。
