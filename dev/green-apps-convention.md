@@ -52,10 +52,10 @@
 
 1. **在Android 4.4以上设备中，避免使用『读取 / 写入外部存储』权限。**
 
-   通常不建议应用将常规数据写入外部存储，因为外部存储可被其它应用访问，存在泄漏风险。Android设备现已普遍采用虚拟分区，内、外部存储实际上共享的是相同的物理存储位置和配额，因此不必担心存储空间内部比外部存储更容易耗尽。
+   通常不建议应用将常规数据写入外部存储，因为外部存储可被其它应用访问，存在泄漏风险。Android设备现已普遍采用虚拟分区，内、外部存储实际上共享的是相同的物理存储位置和配额，因此不必担心存储空间内部比外部存储更容易耗尽。
 
-   如果确有需要将数据或缓存写入外部存储中保存，[Context.getExternalFilesDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalFilesDir(java.lang.String))、 [Context.getExternalCacheDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalCacheDir()) 等相关API所返回的路径[从Android 4.4开始可供应用直接存取，无需任何权限](https://developer.android.google.cn/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE)。如果应用仍需兼容Android 4.4以下的系统版本，请使用以下方式声明外部存储的读写权限，可兼顾Android 4.4前后版本的权限约束。
+   如果确有需要将数据或缓存写入外部存储中保存，[Context.getExternalFilesDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalFilesDir(java.lang.String))、 [Context.getExternalCacheDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalCacheDir()) 等相关API所返回的路径[从Android 4.4开始可供应用直接存取，无需任何权限](https://developer.android.google.cn/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE)。如果应用仍需兼容Android 4.4以下的系统版本，请使用以下方式声明外部存储的读写权限，可兼顾Android 4.4前后版本的权限约束。
 
-   `<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />`
+   `<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />`
 
    原因：外部存储通常是用户私人照片、视频的保存位置，涉及用户的敏感隐私。除文件管理类工具，应尽可能避免使用此权限。
