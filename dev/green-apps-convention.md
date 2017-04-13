@@ -50,9 +50,9 @@
 
 ### 建议部分
 
-1. 在Android 4.4以上设备中，避免使用『访问外部存储』权限。
+1. **在Android 4.4以上设备中，避免使用『读取 / 写入外部存储』权限。**
 
-   如果需要将数据或缓存写入外部存储中保存，[Context.getExternalFilesDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalFilesDir(java.lang.String))、[Context.getExternalCacheDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalCacheDir())等相关API所返回的路径[从Android 4.4开始可供应用直接存取，无需任何权限](https://developer.android.google.cn/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE)。如果你的应用需要兼容Android 4.4以下的系统版本，请使用以下权限声明方式：
+   如果需要将数据或缓存写入外部存储中保存，[Context.getExternalFilesDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalFilesDir(java.lang.String))、[Context.getExternalCacheDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalCacheDir()) 等相关API所返回的路径[从Android 4.4开始可供应用直接存取，无需任何权限](https://developer.android.google.cn/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE)。如果你的应用需要兼容Android 4.4以下的系统版本，请使用以下权限声明方式：
 
    `<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />`
 
