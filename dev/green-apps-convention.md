@@ -10,6 +10,10 @@
 
 因此，除了加强用户对于设备体验损害的辨识能力外，有必要推动整个Android开发社区以更高的标准优化各自应用的设备体验影响，共同维护一个良性的Android生态。
 
+## 开放编撰
+
+此公约的内容修订和扩充面向整个Android开发社区，采取开放接纳、充分讨论、积极修订的原则。如果对规约有任何的疑问（包括实施中的困难）和建议，请通过此公约的[GitHub issue tracker](https://github.com/greenify/greenify.github.io/labels/convention)提交，标题以 [公约] 开始。
+
 ## 核心原则
 
 此公约的核心原则完全遵照Android本身的演进方向（包括[Android O所引入的新变化](https://developer.android.google.cn/preview/behavior-changes.html)），积极引导和协助应用开发团队平滑完成对接Android最新变化的节奏，在确保应用核心功能不受影响的前提下，减少不必要的应用后台行为，并以更加高效、节能的调度机制改善后台行为的调度。
