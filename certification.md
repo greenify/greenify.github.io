@@ -42,7 +42,6 @@
    * 通过`PackageManager`禁用前述`Activity` (或`alias`），此禁用状态作为绿色守护后续识别『后台纯净』模式已开启的标识。如果用户此后在应用的设置中关闭了『后台纯净』模式，则须通过`PackageManager`重新启用前述`Activity`（或`alias`）。
    * 不启动任何将在后台保持持续运行的服务（`Service`），除非应用处于『前台』状态。
    * 不再初始化会启动后台持续运行服务的三方SDK。
-   * 禁用集成自第三方SDK且对外暴露（`android:exported="true"`）的全部组件。
 
 # 认证有效性
 
