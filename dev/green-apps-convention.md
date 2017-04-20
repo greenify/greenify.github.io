@@ -71,3 +71,11 @@
    对于**应用私有数据**，通常不建议写入外部存储，因为外部存储可被其它应用访问，存在泄漏风险。这意味着通常还需要对涉及用户隐私的数据额外加密保存。如果确有特殊原因需要将数据写入外部存储，[Context.getExternalFilesDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalFilesDir(java.lang.String))、 [Context.getExternalCacheDir()](https://developer.android.google.cn/reference/android/content/Context.html#getExternalCacheDir()) 等相关API所返回的路径[从Android 4.4开始可供应用直接存取，无需任何权限](https://developer.android.google.cn/reference/android/Manifest.permission.html#WRITE_EXTERNAL_STORAGE)。如果应用仍需兼容Android 4.4以下的系统版本，请使用前述版本限定的方式声明外部存储的读写权限。
 
    原因：外部存储通常是用户私人照片、视频的保存位置，涉及用户的敏感隐私。除文件管理类工具，应尽可能避免使用此权限。
+
+2. **上架Google Play应用市场**
+
+   Google Play应用市场（以下简称Google Play）是Android生态中全球最大的应用分发渠道，在除中国大陆地区外发售的绝大部分Android手机中是预装的唯一应用市场。由于众所周知的因素，Google Play在国内的Android应用分发渠道中并未获得主导地位，但这并不妨碍应用开发者应将应用上架Google Play的重要性。将应用上架Google Play可获得如下优势：
+
+   * Google Play在国内仍然具有相当数量的高端受众（粗略估算在数十万级别），他们的绝对基数虽然不算高，但在Google Play的评论分量和影响力却很显著。Google Play相对严格的监管相当于为应用的口碑在高端用户群体中提供了有效的背书。
+   * 及早在Google Play中抢占竞争优势，因为在Google Play上积累口碑和评价远比国内的应用市场严格和困难。Google Play虽然目前尚未正式进入中国大陆市场，但这一可能性正在快速上升。当别的开发团队尚未觉察到这一点之前，只需投入少量的精力（增加一个分发渠道）即可换取一个潜在的高回报。
+   * Google Play提出的要求、提供的工具和服务，可以让开发团队及早完成与国际标准的对接，降低未来国际化的门槛和阻力。
