@@ -6,7 +6,7 @@
 
 针对国内的复杂国情（尤其是推送渠道的碎片化问题），以维护应用的合理利益为出发点，在《绿色应用公约》的基础上，补充以下辅助内容：
 
-1. 公约中的第1点要求仅约束应用在`AndroidManifest.xml`中声明的`targetSdkVersion`属性，不限制`minSdkVersion`属性和开发中使用的SDK版本。开发团队须自己确保应用符合[Android系统本身对`targetSdkVersion`的约束要求](https://developer.android.google.cn/reference/android/os/Build.VERSION_CODES.html#N)。
+1. 公约中的第1点要求仅约束应用在`AndroidManifest.xml`中声明的`targetSdkVersion`属性，公约对`minSdkVersion`属性和开发中使用的SDK版本无要求。开发团队须自己确保应用符合[Android系统本身对`targetSdkVersion`的约束要求](https://developer.android.google.cn/reference/android/os/Build.VERSION_CODES.html#N)。
 
 2. 针对公约中的第2点要求，可能有部分三方SDK要求必须在`AndroidManifest.xml`中声明`READ_PHONE_STATE`权限，否则拒绝工作。 **解决方法是保留权限声明，但不在运行期请求此项权限。**
 
