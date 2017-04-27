@@ -18,22 +18,22 @@
 
 5. 针对公约中的第5点要求，认证计划建议但不强求应用在设置中为用户提供开启『后台纯净』模式的选项。最低要求是必须为绿色守护（Greenify）的用户提供开启这一选项的接口。
 
-   由于绿色守护的休眠机制原本就会屏蔽应用的所有后台行为，加入休眠清单的应用，实际上已经丧失了后台执行的能力（包括推送通知），以及相应可产生的UV。而如果应用确保了后台纯净，则绿色守护将默认不再主动休眠此应用。应用通过提供这一选项，可与绿色守护的用户之间达成和解，从而赢得用户的信任，换取受控的后台执行能力（如`Alarm`、`JobScheduler`）。
+   由于绿色守护的休眠机制原本就会屏蔽应用的所有后台行为，加入休眠清单的应用，实际上已经丧失了后台执行的能力（包括推送通知），以及相应可产生的UV。而如果应用确保了后台纯净，则绿色守护将默认不再主动休眠此应用，也不会建议用户将通过认证的应用加入休眠清单。应用通过提供这一选项，可与绿色守护的用户之间达成和解，从而赢得用户的信任，换取受控的后台执行能力（如`Alarm`、`JobScheduler`）。
 
-   如果应用不在自身的设置界面中提供上述选项，则须提供一个如下所示的`Activity`：
+   如果已在应用自身的设置内提供『后台纯净』的选项，请为应用内对应的设置界面新增一个`<activity-alias>`，包含响应上述`action`的`<intent-filter>`：
    ```
-   <activity … android:theme="@android:style/Theme.Dialog (or @style/Theme.AppCompat.Dialog)" android:excludeFromRecents="true">
+   <activity-alias … android:excludeFromRecents="true">
      <intent-filter>
        <action android:name="com.oasisfeng.greenify.intent.action.REQUEST_LIMITED_BACKGROUND" />
      </intent-filter>
-   </activity>
+   </activity-alias>
    ```
-   如果已在应用自身的设置内提供『后台纯净』的选项，请为应用内对应的设置界面提供一个响应上述`action`的`<intent-filter>`。建议通过此`action`可直达对应选项的设置界面。
+   如果应用不希望在自身的设置界面中提供上述选项，建议仅在通过上述`action`启动设置界面时，显示『后台纯净』的选项（直接打开设置界面时隐藏此选项）。当用户开启后台纯净模式后，后续进入设置界面则始终显示此选项，以便于用户在必要时关闭后台纯净模式。
 
-   绿色守护会在用户将应用加入休眠清单后提示用户该应用提供『后台纯净』选项，通过`startActivityForResult()`启动上述`Activity`。 **建议此`Activity`向用户展示一个单步骤的确认对话框，提示用户开启『后台纯净』选项可能带来的功能影响（如推送的实时性下降）。用户确认开启『后台纯净』选项后，应用需要确保完成以下几点：**
+   绿色守护会在用户将应用加入休眠清单后提示用户该应用提供『后台纯净』选项，通过`startActivityForResult()`启动上述`Activity`。用户确认开启『后台纯净』选项后，应用需要确保完成以下几点：
 
-   * 通过`setActivityResult()`向绿色守护返回用户的确认结果。（开启为`RESULT_OK`，放弃为`RESULT_CANCEL`）
-   * 通过`PackageManager`禁用前述`Activity` (或`activity-alias`），此禁用状态作为绿色守护后续识别『后台纯净』模式已开启的标识。如果用户此后在应用的设置中关闭了『后台纯净』模式，则须通过`PackageManager`重新启用前述`Activity`（或`alias`）。
+   * 在界面关闭前通过`setActivityResult()`向绿色守护返回用户的确认结果。（开启为`RESULT_OK`，放弃为`RESULT_CANCEL`）
+   * 通过`PackageManager`禁用前述`Activity` (或`activity-alias`），此禁用状态作为绿色守护后续识别『后台纯净』模式已开启的标识。如果用户此后在应用的设置中关闭了『后台纯净』模式，则须通过`PackageManager`重新启用前述`<activity-alias>`。
    * 不启动任何将在后台保持持续运行的服务（`Service`），除非应用处于『前台』状态。
    * 不再初始化会启动后台持续运行服务的三方SDK。
    * 如果应用没有在设置中为所有用户提供开启『后台纯净』模式的选项，则建议当用户已通过绿色守护开启应用的『后台纯净』模式后，在应用自己的设置界面中提供关闭『后台纯净』模式的选项。
