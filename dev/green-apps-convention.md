@@ -50,14 +50,16 @@
 
    对于存在内容更新、数据同步或弱实时性通知的应用场景，建议在『后台纯净』模式下以周期性轮询替代推送。（参见前述的最低周期约束）
 
-6. **不在AndroidManifest.xml中静态声明针对以下广播的接收器：（从面向Android O开始，Android本身已不再支持应用静态声明以下广播的接收器）**
+6. **不在AndroidManifest.xml中静态声明针对以下广播的接收器：（从面向Android O开始，Android本身已不再支持应用静态声明以下全部广播的接收器）**
 
-   * android.net.conn.CONNECTIVITY_CHANGE （在Android 7.x上已不再支持静态声明）
-   * android.net.wifi.SCAN_RESULTS
-   * android.intent.action.USER_PRESENT
-   * android.intent.action.ACTION_POWER_CONNECTED
-   * android.intent.action.ACTION_POWER_DISCONNECTED
-   * android.intent.action.MEDIA_*
+   * android.net.conn.CONNECTIVITY_CHANGE （Android 7已不再支持静态注册前三项，替代方案参见[官方开发文档](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html#bg-opt)）
+   * android.hardware.action.NEW_PICTURE
+   * android.hardware.action.NEW_VIDEO
+   * android.net.wifi.SCAN_RESULTS （极少使用，建议以 LocationManager 替代）
+   * android.intent.action.USER_PRESENT （避免使用）
+   * android.intent.action.ACTION_POWER_CONNECTED （建议采用 JobScheduler 替代）
+   * android.intent.action.ACTION_POWER_DISCONNECTED （建议采用 JobScheduler 替代）
+   * android.intent.action.MEDIA_* （避免使用）
 
 ### 建议部分
 
