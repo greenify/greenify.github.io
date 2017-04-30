@@ -50,16 +50,35 @@
 
    对于存在内容更新、数据同步或弱实时性通知的应用场景，建议在『后台纯净』模式下以周期性轮询替代推送。（参见前述的最低周期约束）
 
-6. **不在AndroidManifest.xml中静态声明针对以下广播的接收器：（从面向Android O开始，Android本身已不再支持应用静态声明以下全部广播的接收器）**
+6. **对于Android 5.0及以上版本的系统，不在AndroidManifest.xml中静态注册以下广播：**（从Android O开始，以下全部广播均已不再支持静态注册）
 
-   * android.net.conn.CONNECTIVITY_CHANGE （Android 7已不再支持静态注册前三项，替代方案参见[官方开发文档](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html#bg-opt)）
-   * android.hardware.action.NEW_PICTURE
-   * android.hardware.action.NEW_VIDEO
-   * android.net.wifi.SCAN_RESULTS （极少使用，建议以 LocationManager 替代）
-   * android.intent.action.USER_PRESENT （避免使用）
-   * android.intent.action.ACTION_POWER_CONNECTED （建议采用 JobScheduler 替代）
-   * android.intent.action.ACTION_POWER_DISCONNECTED （建议采用 JobScheduler 替代）
-   * android.intent.action.MEDIA_* （避免使用）
+   * **android.net.conn.CONNECTIVITY_CHANGE** （Android 7已不再支持静态注册，替代方案参见[官方开发文档](https://developer.android.google.cn/about/versions/nougat/android-7.0-changes.html#bg-opt)）
+   * **android.hardware.action.NEW_PICTURE** （同上）
+   * **android.hardware.action.NEW_VIDEO** （同上）
+   * **android.net.wifi.SCAN_RESULTS** （极少使用，建议以 LocationManager 替代）
+   * **android.intent.action.USER_PRESENT** （避免使用）
+   * **android.intent.action.ACTION_POWER_CONNECTED** （建议采用 JobScheduler 替代）
+   * **android.intent.action.ACTION_POWER_DISCONNECTED** （建议采用 JobScheduler 替代）
+   * **android.intent.action.MEDIA_...** （避免使用）
+
+   如需兼容旧版本Android系统，可在AndroidManifest.xml中声明所需的广播接收器，并使用版本区分的资源常量确保在Android 5.0及以上系统中禁用上述静态广播接收器。如下所示：
+
+   AndroidManifext.xml
+   ```
+   <receiver ... android:enabled="@bool/until_api_21">
+   ```
+   /src/main/res/values/flags.xml
+   ```
+   <resources>
+     <bool name="until_api_21">true</bool>
+   </resources>
+   ```
+   /src/main/res/values-v21/flags.xml
+   ```
+   <resources>
+     <bool name="until_api_21">false</bool>
+   </resources>
+   ```
 
 ### 建议部分
 
