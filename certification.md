@@ -32,7 +32,7 @@
 
    绿色守护会在用户将应用加入休眠清单后提示用户该应用提供『后台纯净』选项，通过`startActivityForResult()`启动上述`Activity`。用户确认开启『后台纯净』选项后，应用需要确保完成以下几点：
 
-   * 在界面关闭前通过`setActivityResult()`向绿色守护返回用户的确认结果。（开启为`RESULT_OK`，放弃为`RESULT_CANCEL`）
+   * 在界面关闭前通过`setResult()`向绿色守护返回用户的确认结果。（开启为`RESULT_OK`，放弃为`RESULT_CANCEL`）
    * 通过`PackageManager`禁用前述`Activity` (或`activity-alias`），此禁用状态作为绿色守护后续识别『后台纯净』模式已开启的标识。如果用户此后在应用的设置中关闭了『后台纯净』模式，则须通过`PackageManager`重新启用前述`<activity-alias>`。
    * 不启动任何将在后台保持持续运行的服务（`Service`），除非应用处于『前台』状态。
    * 不再初始化会启动后台持续运行服务的三方SDK。
