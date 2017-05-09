@@ -25,6 +25,7 @@
    <activity-alias … android:excludeFromRecents="true">
      <intent-filter>
        <action android:name="com.oasisfeng.greenify.intent.action.REQUEST_LIMITED_BACKGROUND" />
+       <category android:name="android.intent.category.DEFAULT" />
      </intent-filter>
    </activity-alias>
    ```
