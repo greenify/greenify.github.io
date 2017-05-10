@@ -46,7 +46,7 @@
 
    原因：后台持续运行的服务，是一系列设备体验问题的温床，如长连接基带持续工作增加的耗电、低内存时服务循环重启引起的设备迟缓、间歇性CPU和IO资源占用造成的卡顿…… 后台纯净是Android O对应用后台约束的一项重大原则性变化，它倡导的是『如非必要，勿启后台』的新原则。
 
-   后台纯净 (Background-free)：指符合[面向Android O的应用开发要求](https://developer.android.google.cn/preview/features/background.html#services)中关于后台运行的约束。其核心要求是应用进入后台短时间内（至多3分钟）须停止所有后台服务，且在除了收到广播和执行来自通知的PendingIntent之外的其它条件（如JobScheduler）触发的后台行为期间不可以再启动新的后台服务。
+   后台纯净 (Background-free)：指符合[面向Android O的应用开发要求](https://developer.android.google.cn/preview/features/background.html#services)中关于后台运行的约束。其核心要求是应用进入后台短时间内（至多3分钟，并在屏幕关闭前）停止所有后台服务，且在除了收到广播和执行来自通知的PendingIntent之外的其它条件（如JobScheduler）触发的后台行为期间不可以再启动新的后台服务。
 
    对于存在内容更新、数据同步或弱实时性通知的应用场景，建议在『后台纯净』模式下以周期性轮询替代推送。（参见前述的最低周期约束）
 
