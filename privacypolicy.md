@@ -4,12 +4,11 @@ This privacy policy has been compiled to better serve those who are concerned wi
 
 **How do we use the sensitive permissions in your app?**
 
-DEVICE-ADMIN: Greenify requests this permission only for turning-off the screen of your device. (including but not limited to "hibernation shortcut" and "automatic hibernation")
-
-DRAW OVER OTHER APP: To dim the screen and show hints during unattended automatic hibernation.
-GET ACCOUNTS & WRITE SYNC SETTINGS: Control the account sync of apps if its sync task is too frequent.
-DISABLE YOUR SCREEN LOCK: For automatic hibernation to work on non-root devices.
-BIND ACCESSIBILITY SERVICE: To automate the manual procedure of hibernation. We never collect any private data from accessibility service.
+* DEVICE-ADMIN: Greenify requests this permission only for turning-off the screen of your device. (including but not limited to "hibernation shortcut" and "automatic hibernation")
+* DRAW OVER OTHER APP: To dim the screen and show hints during unattended automatic hibernation.
+* GET ACCOUNTS & WRITE SYNC SETTINGS: Control the account sync of apps if its sync task is too frequent.
+* DISABLE YOUR SCREEN LOCK: For automatic hibernation to work on non-root devices.
+* BIND ACCESSIBILITY SERVICE: To automate the manual procedure of hibernation. We never collect any private data from accessibility service.
 
 **What information do we collect from the people that use our app?**
 
