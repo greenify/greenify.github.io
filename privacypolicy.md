@@ -2,6 +2,15 @@
 
 This privacy policy has been compiled to better serve those who are concerned with how their 'Personally Identifiable Information' (PII) is being used online. PII, as described in US privacy law and information security, is information that can be used on its own or with other information to identify, contact, or locate a single person, or to identify an individual in context. Please read our privacy policy carefully to get a clear understanding of how we collect, use, protect or otherwise handle your Personally Identifiable Information in accordance with our website.
 
+**How do we use the sensitive permissions in your app?**
+
+DEVICE-ADMIN: Greenify requests this permission only for turning-off the screen of your device. (including but not limited to "hibernation shortcut" and "automatic hibernation")
+
+DRAW OVER OTHER APP: To dim the screen and show hints during unattended automatic hibernation.
+GET ACCOUNTS & WRITE SYNC SETTINGS: Control the account sync of apps if its sync task is too frequent.
+DISABLE YOUR SCREEN LOCK: For automatic hibernation to work on non-root devices.
+BIND ACCESSIBILITY SERVICE: To automate the manual procedure of hibernation. We never collect any private data from accessibility service.
+
 **What information do we collect from the people that use our app?**
 
 We do not collect personal information from users, but we do collect anonymized behavior information about users and internal app data, to improve our products and customer service.
