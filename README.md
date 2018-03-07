@@ -41,8 +41,19 @@ Syntax:
   [package="<app package name>"]
   [class="<component class name>"]>
   <intent-filter>
+    <action name="..." />
+    [<cat name="..." />]
+    [<type name="..." />]
+    [<scheme name="..." />]
+    [<ssp literal|prefix|sglob|aglob="..." />]
+    [<auth host="..." [port="..."] />]
+    [<path literal|prefix|sglob|aglob="..." />]
     ...
   </intent-filter>
+  [<intent-filter>
+    ...
+  </intent-filter>
+  ...]
 </prescription>
 ```
 
