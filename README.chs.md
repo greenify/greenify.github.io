@@ -38,21 +38,32 @@ title: 绿色守护社区特性
 语法：
 
 ```xml
-<prescription xmlns="http://greenify.github.io/schemas/prescription/v2"
+<prescription xmlns="http://greenify.github.io/schemas/prescription/v3"
   type="service|broadcast|activity"
   sender="other-app|other|any"
   [package="<app package name>"]
   [class="<component class name>"]>
   <intent-filter>
+    <action name="..." />
+    [<cat name="..." />]
+    [<type name="..." />]
+    [<scheme name="..." />]
+    [<ssp literal|prefix|sglob|aglob="..." />]
+    [<auth host="..." [port="..."] />]
+    [<path literal|prefix|sglob|aglob="..." />]
     ...
   </intent-filter>
+  [<intent-filter>
+    ...
+  </intent-filter>
+  ...]
 </prescription>
 ```
 
 或（从绿色守护 3.2.0 版本开始)
   
 ```xml
-<prescriptions xmlns="http://greenify.github.io/schemas/prescription/v2">
+<prescriptions xmlns="http://greenify.github.io/schemas/prescription/v3">
   <prescription ... >
     ...
   </prescription>
@@ -67,8 +78,8 @@ title: 绿色守护社区特性
 
 从绿色守护3.2.0版本（处方格式版本2）开始，一条处方单还可以包含多个子处方单（上述`<prescriptions>`语法）。以及新的`sender`属性用以限定行为的触发来源，目前支持三种范围的触发来源：
 
-* `other-app`：其它应用触发的行为（默认）
-* `other`：非应用自身触发的行为（在前一类型基础上，还涵盖了系统触发的行为）
+* `other-app`：其它非系统应用触发的行为（默认）
+* `other`：非应用自身触发的行为（在前一类型基础上，还涵盖了系统本身及系统应用触发的行为）
 * `any`：任何来源触发的行为（在前一类型基础上，还涵盖了应用内部的行为）
 
 简单示例：<https://github.com/greenify/rx-mipush>
